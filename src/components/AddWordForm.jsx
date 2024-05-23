@@ -17,10 +17,10 @@ const AddWordForm = ({ addWord }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Word" value={word} onChange={(e) => setWord(e.target.value)} required />
-      <input type="text" placeholder="Transcription" value={transcription} onChange={(e) => setTranscription(e.target.value)} required />
-      <input type="text" placeholder="Translation" value={translation} onChange={(e) => setTranslation(e.target.value)} required />
-      <input type="text" placeholder="Theme" value={theme} onChange={(e) => setTheme(e.target.value)} required />
+      <input type="text" placeholder="Слово" value={word} onChange={(e) => setWord(e.target.value)} required />
+      <input type="text" placeholder="Транскрипция" value={transcription} onChange={(e) => setTranscription(e.target.value)} required />
+      <input type="text" placeholder="Перевод" value={translation} onChange={(e) => setTranslation(e.target.value)} required />
+      <input type="text" placeholder="Тема" value={theme} onChange={(e) => setTheme(e.target.value)} required />
       <button type="submit">Добавить слово</button>
     </form>
   );
