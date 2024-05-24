@@ -8,7 +8,7 @@ import EditWordForm from './components/EditWordForm';
 
 const App = () => {
   const [words, setWords] = useState([
-    { id: 1, word: 'Hello', transcription: 'həˈlō', translation: 'Привет', theme: 'Basic' },
+    { id: 1, word: 'Hello', transcription: 'həˈlō', translation: 'Привет', theme: 'Базовое' },
   ]);
   const [editingWord, setEditingWord] = useState(null);
 
