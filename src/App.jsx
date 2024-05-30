@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import './styles.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import WordList from './components/WordList';
@@ -19,7 +20,7 @@ const App = () => {
 
   const updateWord = (updatedWord) => {
     setWords(words.map((word) => (word.id === updatedWord.id ? updatedWord : word)));
-    setEditingWord(null); // Exit editing mode after update
+    setEditingWord(null); // Выйти из режима редактирования после обновления
   };
 
   const deleteWord = (id) => {
@@ -31,7 +32,7 @@ const App = () => {
       <Header />
       <main>
         {editingWord ? (
-          <EditWordForm word={editingWord} updateWord={updateWord} />
+          <EditWordForm word={editingWord} updateWord={updateWord} setEditingWord={setEditingWord} />
         ) : (
           <>
             <AddWordForm addWord={addWord} />
@@ -45,4 +46,7 @@ const App = () => {
 };
 
 export default App;
+
+
+
 

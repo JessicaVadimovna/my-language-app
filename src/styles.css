@@ -1,0 +1,134 @@
+/* styles.css */
+
+:root {
+    --primary-color: #4caf50;
+    --secondary-color: #ff9800;
+    --danger-color: #f44336;
+    --background-color: #f5f5f5;
+    --font-family: Arial, sans-serif;
+    --font-size: 16px;
+    --border-radius: 5px;
+    --transition-duration: 0.3s;
+    --table-header-bg: #f2f2f2;
+    --table-row-hover-bg: #eaeaea;
+    --table-border-color: #ddd;
+  }
+  
+  body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    font-size: var(--font-size);
+  }
+  
+  button {
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-duration), transform var(--transition-duration);
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  table.word-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  table.word-list th,
+  table.word-list td {
+    border: 1px solid var(--table-border-color);
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  table.word-list th {
+    background-color: var(--table-header-bg);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table.word-list tbody tr:nth-child(even) {
+    background-color: var(--table-header-bg);
+  }
+  
+  table.word-list tbody tr:hover {
+    background-color: var(--table-row-hover-bg);
+  }
+  
+  .edit-word-form,
+  .add-word-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .edit-word-form input,
+  .add-word-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    transition: border-color var(--transition-duration);
+  }
+  
+  .edit-word-form input:focus,
+  .add-word-form input:focus {
+    border-color: var(--primary-color);
+  }
+  
+  .edit-word-form button,
+  .add-word-form button {
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-duration);
+  }
+  
+  .edit-word-form button:hover,
+  .add-word-form button:hover {
+    background-color: darken(var(--primary-color), 10%);
+  }
+  
+  .edit-word-form button:active,
+  .add-word-form button:active {
+    background-color: darken(var(--primary-color), 20%);
+  }
+  
+  .table-actions button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    border-radius: var(--border-radius);
+    color: white;
+  }
+  
+  .table-actions .edit-btn {
+    background-color: var(--secondary-color);
+  }
+  
+  .table-actions .delete-btn {
+    background-color: var(--danger-color);
+  }
+  
+  .table-actions .edit-btn:hover,
+  .table-actions .delete-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  .table-actions .edit-btn:active,
+  .table-actions .delete-btn:active {
+    transform: scale(0.95);
+  }
+  
