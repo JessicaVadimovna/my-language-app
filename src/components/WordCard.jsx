@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const WordCard = ({ word }) => {
+const WordCard = ({ word, onEdit, onDelete }) => {
+  const [isTranslationVisible, setTranslationVisible] = useState(false);
+
+  const handleShowTranslation = () => {
+    setTranslationVisible(true);
+  };
+
   return (
     <div className="word-card">
-      <h2>{word.word}</h2>
+      <p>Слово: {word.word}</p>
       <p>Транскрипция: {word.transcription}</p>
-      <p>Перевод: {word.translation}</p>
+      {isTranslationVisible ? (
+        <p>Перевод: {word.translation}</p>
+      ) : (
+        <button onClick={handleShowTranslation}>Показать перевод</button>
+      )}
       <p>Тема: {word.theme}</p>
-      <button>Редактировать</button>
-      <button>Удалить</button>
+      <button onClick={onEdit}>Редактировать</button>
+      <button onClick={onDelete}>Удалить</button>
     </div>
   );
 };
 
 export default WordCard;
+

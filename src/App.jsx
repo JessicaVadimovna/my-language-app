@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
-import './styles.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import WordList from './components/WordList';
 import AddWordForm from './components/AddWordForm';
-import EditWordForm from './components/EditWordForm';
+import WordTable from './components/WordTable';
+import ToggleTableButton from './components/ToggleTableButton';
 
 const App = () => {
   const [words, setWords] = useState([
     { id: 1, word: 'Hello', transcription: 'həˈlō', translation: 'Привет', theme: 'Базовое' },
   ]);
-  const [editingWord, setEditingWord] = useState(null);
+  const [isTableVisible, setTableVisible] = useState(false);
 
   const addWord = (newWord) => {
     newWord.id = words.length ? words[words.length - 1].id + 1 : 1;
@@ -20,25 +20,26 @@ const App = () => {
 
   const updateWord = (updatedWord) => {
     setWords(words.map((word) => (word.id === updatedWord.id ? updatedWord : word)));
-    setEditingWord(null); // Выйти из режима редактирования после обновления
   };
 
   const deleteWord = (id) => {
     setWords(words.filter((word) => word.id !== id));
   };
 
+  const toggleTableVisibility = () => {
+    setTableVisible(!isTableVisible);
+  };
+
   return (
     <div className="App">
       <Header />
       <main>
-        {editingWord ? (
-          <EditWordForm word={editingWord} updateWord={updateWord} setEditingWord={setEditingWord} />
-        ) : (
-          <>
-            <AddWordForm addWord={addWord} />
-            <WordList words={words} setEditingWord={setEditingWord} deleteWord={deleteWord} />
-          </>
+        <AddWordForm addWord={addWord} />
+        <ToggleTableButton isTableVisible={isTableVisible} toggleTableVisibility={toggleTableVisibility} />
+        {isTableVisible && (
+          <WordTable words={words} updateWord={updateWord} deleteWord={deleteWord} />
         )}
+        <WordList words={words} updateWord={updateWord} deleteWord={deleteWord} />
       </main>
       <Footer />
     </div>
@@ -46,6 +47,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 

@@ -1,38 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import WordCard from './WordCard';
+import EditableWordCard from './EditableWordCard';
 
-const WordList = ({ words, setEditingWord, deleteWord }) => {
+const WordList = ({ words, updateWord, deleteWord }) => {
+  const [editingWordId, setEditingWordId] = useState(null);
+
+  const handleEdit = (id) => {
+    setEditingWordId(id);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingWordId(null);
+  };
+
   return (
-    <table className="word-list">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Слово</th>
-          <th>Транскрипция</th>
-          <th>Перевод</th>
-          <th>Тема</th>
-          <th>Действия</th>
-        </tr>
-      </thead>
-      <tbody>
-        {words.map((word, index) => (
-          <tr key={word.id}>
-            <td>{index + 1}</td>
-            <td>{word.word}</td>
-            <td>{word.transcription}</td>
-            <td>{word.translation}</td>
-            <td>{word.theme}</td>
-            <td className="table-actions">
-              <button className="edit-btn" onClick={() => setEditingWord(word)}>Редактировать</button>
-              <button className="delete-btn" onClick={() => deleteWord(word.id)}>Удалить</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="word-list">
+      {words.map((word) =>
+        editingWordId === word.id ? (
+          <EditableWordCard
+            key={word.id}
+            word={word}
+            updateWord={updateWord}
+            cancelEdit={handleCancelEdit}
+          />
+        ) : (
+          <WordCard
+            key={word.id}
+            word={word}
+            onEdit={() => handleEdit(word.id)}
+            onDelete={() => deleteWord(word.id)}
+          />
+        )
+      )}
+    </div>
   );
 };
 
 export default WordList;
+
 
 
 
