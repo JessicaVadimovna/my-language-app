@@ -1,0 +1,50 @@
+/* WordCarousel.css */
+
+.word-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .carousel-content {
+    position: relative;
+    width: 300px; /* ширина карточки */
+    height: auto;
+  }
+  
+  .nav-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: #303f9f;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    color: #dddddd;
+  }
+  
+  .nav-button:focus {
+    outline: none;
+  }
+  
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+  }
+  .fade-exit {
+    opacity: 1;
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+  }
+  
+  
