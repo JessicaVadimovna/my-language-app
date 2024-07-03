@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddWordForm = ({ addWord }) => {
+const EditWordForm = ({ addWord }) => {
   const [formData, setFormData] = useState({
     word: '',
     transcription: '',
@@ -54,7 +54,7 @@ const AddWordForm = ({ addWord }) => {
   );
 };
 
-export default AddWordForm;
+export default EditWordForm;
 
 
 

@@ -21,11 +21,22 @@ const Home = ({ words, addWord, updateWord, deleteWord, isTableVisible, toggleTa
   </div>
 );
 
-const Game = ({ words }) => (
-  <div>
-    <WordCarousel words={words} />
-  </div>
-);
+const Game = ({ words }) => {
+  const [learnedWords, setLearnedWords] = useState([]);
+
+  const handleWordLearned = (wordId) => {
+    if (!learnedWords.includes(wordId)) {
+      setLearnedWords([...learnedWords, wordId]);
+    }
+  };
+
+  return (
+    <div>
+      <WordCarousel words={words} onWordLearned={handleWordLearned} learnedWords={learnedWords} />
+      <p>Изучено слов: {learnedWords.length}</p>
+    </div>
+  );
+};
 
 const App = () => {
   const [words, setWords] = useState([
@@ -78,3 +89,5 @@ const App = () => {
 };
 
 export default App;
+
+

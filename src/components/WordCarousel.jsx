@@ -1,56 +1,50 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect, useRef } from 'react';
 import WordCard from './WordCard';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import './WordCarousel.css'; // добавим стили анимации
+import './WordCarousel.css';
 
-const WordCarousel = ({ words = [], initialIndex = 0 }) => {
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+const WordCarousel = ({ words, onWordLearned, learnedWords }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const nextCardRef = useRef(null);
 
-  const nextCard = () => {
+  const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
   };
 
-  const prevCard = () => {
+  const handlePrevious = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + words.length) % words.length);
   };
 
-  if (words.length === 0) {
-    return <p>Список слов пуст.</p>;
-  }
+  useEffect(() => {
+    if (nextCardRef.current) {
+      nextCardRef.current.focus();
+    }
+  }, [currentIndex]);
 
-  const { word, transcription, translation, theme } = words[currentIndex];
+  const handleShowTranslation = () => {
+    if (!learnedWords.includes(words[currentIndex].id)) {
+      onWordLearned(words[currentIndex].id);
+    }
+  };
 
   return (
     <div className="word-carousel">
-      <button onClick={prevCard} className="nav-button">
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </button>
-      <div className="carousel-content">
-        <CSSTransition
-          key={currentIndex}
-          timeout={300}
-          classNames="fade"
-        >
-          <WordCard 
-            word={word} 
-            transcription={transcription} 
-            translation={translation} 
-            theme={theme} 
-            currentIndex={currentIndex + 1} 
-            totalCards={words.length} 
-          />
-        </CSSTransition>
+      <button onClick={handlePrevious}>&lt;</button>
+      <WordCard
+        word={words[currentIndex]}
+        onShowTranslation={handleShowTranslation}
+        ref={nextCardRef}
+      />
+      <button onClick={handleNext}>&gt;</button>
+      <div>
+        {currentIndex + 1} / {words.length}
       </div>
-      <button onClick={nextCard} className="nav-button">
-        <FontAwesomeIcon icon={faArrowRight} />
-      </button>
     </div>
   );
 };
 
 export default WordCarousel;
+
+
 
 
 
