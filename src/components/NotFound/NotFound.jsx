@@ -1,8 +1,8 @@
-// src/components/NotFound.jsx
+// src/components/NotFound/NotFound.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NotFound.css';
-import notFoundImage from '../assets/404.png'; // путь к изображению 404
+import notFoundImage from 'C:/Users/jessi/OneDrive/Рабочий стол/homeworks/react_projects/my-language-app/src/assets/404.png'; // путь к изображению 404
 
 const NotFound = () => {
   return (

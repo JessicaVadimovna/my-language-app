@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Footer from './components/Footer';
-import AddWordForm from './components/AddWordForm';
-import WordTable from './components/WordTable';
-import ToggleTableButton from './components/ToggleTableButton';
-import WordCarousel from './components/WordCarousel';
-import Menu from './components/Menu';
-import NotFound from './components/NotFound';
-import './components/WordCard.css';
-import './components/WordCarousel.css';
+import Footer from './components/Footer/Footer';
+import AddWordForm from './components/AddWordForm/AddWordForm';
+import WordTable from './components/WordTable/WordTable';
+import ToggleTableButton from './components/ToggleTableButton/ToggleTableButton';
+import WordCarousel from './components/WordCarousel/WordCarousel';
+import Menu from './components/Menu/Menu';
+import NotFound from './components/NotFound/NotFound';
+import './components/WordCard/WordCard.css';
+import './components/WordCarousel/WordCarousel.css';
 
 const Home = ({ words, addWord, updateWord, deleteWord, isTableVisible, toggleTableVisibility }) => (
   <div>

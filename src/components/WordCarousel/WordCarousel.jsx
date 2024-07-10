@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WordCard from './WordCard';
+import WordCard from 'C:/Users/jessi/OneDrive/Рабочий стол/homeworks/react_projects/my-language-app/src/components/WordCard/WordCard.jsx';
 import './WordCarousel.css';
 
 const WordCarousel = ({ words }) => {

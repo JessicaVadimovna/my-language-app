@@ -1,8 +1,8 @@
-// src/components/Menu.jsx
+// src/components/Menu/Menu.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Menu.css';
-import logo from '../assets/myapp-jessilis.svg';
+import logo from 'C:/Users/jessi/OneDrive/Рабочий стол/homeworks/react_projects/my-language-app/src/assets/myapp-jessilis.svg';
 
 const Menu = () => {
   return (
