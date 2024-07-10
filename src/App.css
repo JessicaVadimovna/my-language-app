@@ -13,10 +13,11 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 94.7vh;
+  text-align: center;
 }
 
 header, footer {
-  background-color: #3f51b5;
+  background-color: #6E5BE4;
   color: #fff;
   padding: 1rem;
   text-align: center;
@@ -40,11 +41,18 @@ main {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   text-align: center;
+  padding: 20px;
+  margin: 10px;
+  width: 250px;
+}
+
+.word-card .translation {
+  color: #6E5BE4;
 }
 
 .word-card h2 {
   margin: 0 0 1rem;
-  color: #3f51b5;
+  color: #6E5BE4;
 }
 
 .word-card p {
@@ -52,18 +60,19 @@ main {
 }
 
 button {
-  background-color: #3f51b5;
-  color: #fff;
-  border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
   margin: 0.5rem;
+  background-color: #6E5BE4;
+  color: #F7F8F8;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #303f9f;
+  background-color: #5C4DC6;
 }
 
 form {
@@ -107,6 +116,7 @@ button[type="submit"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  background-color: #6E5BE4;
 }
 
 .word-card button:first-of-type {
@@ -115,7 +125,7 @@ button[type="submit"] {
 }
 
 .word-card button:last-of-type {
-  background-color: #f44336;
+  background-color: #6E5BE4;
   color: white;
 }
 
@@ -126,13 +136,19 @@ button[type="submit"] {
 }
 
 .word-table th, .word-table td {
-  border: 1px solid #ddd;
+  border: 1px solid #24293746;
   padding: 8px;
   text-align: center;
 }
 
 .word-table th {
-  background-color: #f2f2f2;
+  background-color: #6E5BE4;
+  color: #F7F8F8;
+}
+
+.word-table td {
+  background-color: #FFFFFF;
+  color: #161A23;
 }
 
 .word-table input {
@@ -144,11 +160,22 @@ button[type="submit"] {
 }
 
 .word-table button {
-  padding: 5px 10px;
-  margin: 2px;
+  background-color: #6E5BE4;
+  color: #F7F8F8;
   border: none;
-  border-radius: 4px;
+  padding: 5px 10px;
   cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.word-table button:hover {
+  background-color: #5C4DC6;
+}
+
+.error {
+  border: 2px solid red;
 }
 
 .word-table button:first-of-type {
@@ -203,5 +230,11 @@ button[type="submit"] {
 }
 
 .nav-button:active {
-  background-color: #303f9f;
+  background-color: #6E5BE4;
+}
+
+
+button.disabled {
+  background-color: #C4C4C4;
+  cursor: not-allowed;
 }

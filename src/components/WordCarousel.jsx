@@ -1,48 +1,45 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import WordCard from './WordCard';
 import './WordCarousel.css';
 
-const WordCarousel = ({ words, onWordLearned, learnedWords }) => {
+const WordCarousel = ({ words }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const nextCardRef = useRef(null);
+  const [studiedWords, setStudiedWords] = useState([]);
 
-  const handleNext = () => {
+  const nextCard = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
   };
 
-  const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + words.length) % words.length);
+  const prevCard = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? words.length - 1 : prevIndex - 1));
   };
 
-  useEffect(() => {
-    if (nextCardRef.current) {
-      nextCardRef.current.focus();
-    }
-  }, [currentIndex]);
-
-  const handleShowTranslation = () => {
-    if (!learnedWords.includes(words[currentIndex].id)) {
-      onWordLearned(words[currentIndex].id);
+  const handleShowTranslation = (wordId) => {
+    if (!studiedWords.includes(wordId)) {
+      setStudiedWords([...studiedWords, wordId]);
     }
   };
 
   return (
     <div className="word-carousel">
-      <button onClick={handlePrevious}>&lt;</button>
-      <WordCard
-        word={words[currentIndex]}
-        onShowTranslation={handleShowTranslation}
-        ref={nextCardRef}
-      />
-      <button onClick={handleNext}>&gt;</button>
-      <div>
-        {currentIndex + 1} / {words.length}
-      </div>
+      <button onClick={prevCard}>&lt;</button>
+      {words.length > 0 && (
+        <WordCard
+          word={words[currentIndex]}
+          isTranslationVisible={studiedWords.includes(words[currentIndex].id)}
+          onShowTranslation={handleShowTranslation}
+        />
+      )}
+      <button onClick={nextCard}>&gt;</button>
+      <p>
+        Изучено слов: {studiedWords.length} из {words.length}
+      </p>
     </div>
   );
 };
 
 export default WordCarousel;
+
 
 
 

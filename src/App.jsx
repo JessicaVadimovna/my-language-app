@@ -33,7 +33,7 @@ const Game = ({ words }) => {
   return (
     <div>
       <WordCarousel words={words} onWordLearned={handleWordLearned} learnedWords={learnedWords} />
-      <p>Изучено слов: {learnedWords.length}</p>
+      
     </div>
   );
 };
