@@ -1,21 +1,18 @@
-/* WordCard.css */
+.word-card {
+  border: 1px solid #161a2310;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  background-color: #dedcfc;
+}
 
-.fade-enter {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  .fade-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 300ms, transform 300ms;
-  }
-  .fade-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .fade-exit-active {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 300ms, transform 300ms;
-  }
-  
+.word {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.transcription, .translation, .theme {
+  font-size: 18px;
+  margin-top: 10px;
+}
+

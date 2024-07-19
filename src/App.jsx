@@ -10,84 +10,64 @@ import Menu from './components/Menu/Menu';
 import NotFound from './components/NotFound/NotFound';
 import './components/WordCard/WordCard.css';
 import './components/WordCarousel/WordCarousel.css';
+import WordProvider, { WordContext } from './contexts/WordContext';
+import ErrorComponent from './components/ErrorComponent/ErrorComponent';
 
-const Home = ({ words, addWord, updateWord, deleteWord, isTableVisible, toggleTableVisibility }) => (
+const Home = ({ isTableVisible, toggleTableVisibility }) => (
   <div>
-    <AddWordForm addWord={addWord} />
+    <AddWordForm />
     <ToggleTableButton isTableVisible={isTableVisible} toggleTableVisibility={toggleTableVisibility} />
-    {isTableVisible && (
-      <WordTable words={words} updateWord={updateWord} deleteWord={deleteWord} />
-    )}
+    {isTableVisible && <WordTable />}
   </div>
 );
 
-const Game = ({ words }) => {
-  const [learnedWords, setLearnedWords] = useState([]);
-
-  const handleWordLearned = (wordId) => {
-    if (!learnedWords.includes(wordId)) {
-      setLearnedWords([...learnedWords, wordId]);
-    }
-  };
-
+const Game = () => {
   return (
     <div>
-      <WordCarousel words={words} onWordLearned={handleWordLearned} learnedWords={learnedWords} />
-      
+      <WordCarousel />
     </div>
   );
 };
 
 const App = () => {
-  const [words, setWords] = useState([
-    { id: 1, word: 'Hello', transcription: 'həˈlō', translation: 'Привет', theme: 'Базовое' },
-    { id: 2, word: 'World', transcription: 'wərld', translation: 'Мир', theme: 'Базовое' }
-  ]);
   const [isTableVisible, setTableVisible] = useState(false);
-
-  const addWord = (newWord) => {
-    newWord.id = words.length ? words[words.length - 1].id + 1 : 1;
-    setWords([...words, newWord]);
-  };
-
-  const updateWord = (updatedWord) => {
-    setWords(words.map((word) => (word.id === updatedWord.id ? updatedWord : word)));
-  };
-
-  const deleteWord = (id) => {
-    setWords(words.filter((word) => word.id !== id));
-  };
 
   const toggleTableVisibility = () => {
     setTableVisible(!isTableVisible);
   };
 
   return (
-    <Router>
-      <div className="App">
-        <Menu />
-        <main>
-          <Routes>
-            <Route path="/" element={
-              <Home
-                words={words}
-                addWord={addWord}
-                updateWord={updateWord}
-                deleteWord={deleteWord}
-                isTableVisible={isTableVisible}
-                toggleTableVisibility={toggleTableVisibility}
+    <WordProvider>
+      <Router>
+        <div className="App">
+          <Menu />
+          <main>
+            <WordContext.Consumer>
+              {({ error }) => error && <ErrorComponent message={error.message} />}
+            </WordContext.Consumer>
+            <Routes>
+              <Route
+                path="/"
+                element={<Home isTableVisible={isTableVisible} toggleTableVisibility={toggleTableVisibility} />}
               />
-            } />
-            <Route path="/game" element={<Game words={words} />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+              <Route path="/game" element={<Game />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </WordProvider>
   );
 };
 
 export default App;
+
+
+
+
+
+
+
 
 

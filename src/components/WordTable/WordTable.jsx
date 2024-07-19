@@ -1,51 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { WordContext } from '../../contexts/WordContext';
+import './WordTable.css';
 
-const WordTable = ({ words, updateWord, deleteWord }) => {
-  const [editingId, setEditingId] = useState(null);
-  const [editedWord, setEditedWord] = useState({});
-  const [errors, setErrors] = useState({});
+const WordTable = () => {
+  const { words, updateWord, deleteWord } = useContext(WordContext);
+  const [editId, setEditId] = useState(null);
+  const [editWord, setEditWord] = useState({
+    word: '',
+    transcription: '',
+    translation: '',
+    theme: ''
+  });
 
   const handleEditClick = (word) => {
-    setEditingId(word.id);
-    setEditedWord({ ...word });
-    setErrors({});
+    setEditId(word.id);
+    setEditWord({
+      word: word.word,
+      transcription: word.transcription,
+      translation: word.translation,
+      theme: word.theme
+    });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedWord({ ...editedWord, [name]: value });
-    setErrors({ ...errors, [name]: !value.trim() });
+    setEditWord((prevWord) => ({
+      ...prevWord,
+      [name]: value
+    }));
   };
 
   const handleSaveClick = () => {
-    const newErrors = {};
-    ['word', 'transcription', 'translation', 'theme'].forEach((field) => {
-      if (!editedWord[field]?.trim()) {
-        newErrors[field] = true;
-      }
-    });
+    const fields = ['word', 'transcription', 'translation', 'theme'];
+    const emptyFields = fields.filter((field) => !editWord[field] || editWord[field].trim() === '');
 
-    if (Object.keys(newErrors).length) {
-      setErrors(newErrors);
-      alert('Ошибка: все поля должны быть заполнены');
-    } else {
-      console.log('Сохранено слово:', editedWord);
-      updateWord(editedWord);
-      setEditingId(null);
+    if (emptyFields.length > 0) {
+      alert('Заполните все поля');
+      return;
     }
+
+    updateWord({ id: editId, ...editWord });
+    setEditId(null);
+    setEditWord({
+      word: '',
+      transcription: '',
+      translation: '',
+      theme: ''
+    });
   };
 
   const handleCancelClick = () => {
-    setEditingId(null);
-    setEditedWord({});
-    setErrors({});
+    setEditId(null);
+    setEditWord({
+      word: '',
+      transcription: '',
+      translation: '',
+      theme: ''
+    });
+  };
+
+  const isSaveDisabled = () => {
+    return ['word', 'transcription', 'translation', 'theme'].some((field) => !editWord[field].trim());
   };
 
   return (
-    <table className="word-table">
+    <table>
       <thead>
         <tr>
-          <th>#</th>
           <th>Слово</th>
           <th>Транскрипция</th>
           <th>Перевод</th>
@@ -54,50 +75,53 @@ const WordTable = ({ words, updateWord, deleteWord }) => {
         </tr>
       </thead>
       <tbody>
-        {words.map((word, index) => (
+        {words.map((word) => (
           <tr key={word.id}>
-            <td>{index + 1}</td>
-            {editingId === word.id ? (
+            {editId === word.id ? (
               <>
                 <td>
                   <input
                     type="text"
                     name="word"
-                    value={editedWord.word}
+                    value={editWord.word}
                     onChange={handleInputChange}
-                    className={errors.word ? 'error' : ''}
+                    className={!editWord.word.trim() ? 'input-error' : ''}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     name="transcription"
-                    value={editedWord.transcription}
+                    value={editWord.transcription}
                     onChange={handleInputChange}
-                    className={errors.transcription ? 'error' : ''}
+                    className={!editWord.transcription.trim() ? 'input-error' : ''}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     name="translation"
-                    value={editedWord.translation}
+                    value={editWord.translation}
                     onChange={handleInputChange}
-                    className={errors.translation ? 'error' : ''}
+                    className={!editWord.translation.trim() ? 'input-error' : ''}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     name="theme"
-                    value={editedWord.theme}
+                    value={editWord.theme}
                     onChange={handleInputChange}
-                    className={errors.theme ? 'error' : ''}
+                    className={!editWord.theme.trim() ? 'input-error' : ''}
                   />
                 </td>
                 <td>
-                  <button onClick={handleSaveClick} disabled={Object.keys(errors).some(key => errors[key])} className={Object.keys(errors).some(key => errors[key]) ? 'disabled' : ''}>Сохранить</button>
-                  <button onClick={handleCancelClick}>Отмена</button>
+                  <button onClick={handleSaveClick} disabled={isSaveDisabled()}>
+                    Сохранить
+                  </button>
+                  <button onClick={handleCancelClick}>
+                    Отменить
+                  </button>
                 </td>
               </>
             ) : (
@@ -120,3 +144,9 @@ const WordTable = ({ words, updateWord, deleteWord }) => {
 };
 
 export default WordTable;
+
+
+
+
+
+

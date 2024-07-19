@@ -1,0 +1,4 @@
+[
+    { "id": 1, "word": "Hello", "transcription": "həˈlō", "translation": "Привет", "theme": "Базовое" },
+    { "id": 2, "word": "World", "transcription": "wərld", "translation": "Мир", "theme": "Базовое" }
+]

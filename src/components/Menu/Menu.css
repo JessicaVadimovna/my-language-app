@@ -1,5 +1,3 @@
-/* src/components/Menu.css */
-
 .menu {
   position: fixed;
   top: 0;
@@ -26,7 +24,7 @@
 }
 
 .logo-img {
-  height: 40px; /* Установите высоту изображения логотипа */
+  height: 40px; 
   width: auto;
 }
 

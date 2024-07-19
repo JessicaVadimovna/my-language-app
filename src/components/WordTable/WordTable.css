@@ -1,6 +1,10 @@
-/* src/components/WordTable.css */
+ .table th, 
+        td {
+  border: 1px solid #e7c1fd;
+  background-color: #f0e3f8; 
+ }
 
-.word-table {
+ .word-table {
     margin: 20px auto;
     max-width: 1000px;
     width: 100%;
@@ -14,7 +18,7 @@
   
   .word-table th,
   .word-table td {
-    border: 1px solid #ddd;
+    border: 1px solid #363636;
     padding: 8px;
     text-align: left;
   }
@@ -45,3 +49,11 @@
     background-color: #45a049;
   }
   
+  .input-error {
+  border: 1px solid red;
+}
+
+  button[disabled] {
+  background-color: #ccc; 
+  cursor: not-allowed;
+}

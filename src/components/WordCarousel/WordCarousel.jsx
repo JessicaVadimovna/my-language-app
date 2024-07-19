@@ -1,48 +1,63 @@
-import React, { useState } from 'react';
-import WordCard from 'C:/Users/jessi/OneDrive/Рабочий стол/homeworks/react_projects/my-language-app/src/components/WordCard/WordCard.jsx';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { WordContext } from '../../contexts/WordContext';
+import WordCard from '../WordCard/WordCard';
 import './WordCarousel.css';
 
-const WordCarousel = ({ words }) => {
+const WordCarousel = () => {
+  const { words } = useContext(WordContext);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [studiedWords, setStudiedWords] = useState([]);
+  const [learnedWords, setLearnedWords] = useState([]);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const translationButtonRef = useRef(null);
 
-  const nextCard = () => {
+  useEffect(() => {
+    if (translationButtonRef.current) {
+      translationButtonRef.current.focus();
+    }
+  }, [currentIndex]);
+
+  const handleNextClick = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
+    setShowTranslation(false);
   };
 
-  const prevCard = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? words.length - 1 : prevIndex - 1));
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + words.length) % words.length);
+    setShowTranslation(false);
   };
 
-  const handleShowTranslation = (wordId) => {
-    if (!studiedWords.includes(wordId)) {
-      setStudiedWords([...studiedWords, wordId]);
+  const handleShowTranslation = () => {
+    setShowTranslation(true);
+    if (!learnedWords.includes(words[currentIndex].id)) {
+      setLearnedWords((prevLearnedWords) => [...prevLearnedWords, words[currentIndex].id]);
     }
   };
 
   return (
-    <div className="word-carousel">
-      <button onClick={prevCard}>&lt;</button>
-      {words.length > 0 && (
-        <WordCard
-          word={words[currentIndex]}
-          isTranslationVisible={studiedWords.includes(words[currentIndex].id)}
-          onShowTranslation={handleShowTranslation}
-        />
-      )}
-      <button onClick={nextCard}>&gt;</button>
-      <p>
-        Изучено слов: {studiedWords.length} из {words.length}
-      </p>
+    <div className="carousel">
+      <button className="carousel-button prev-button" onClick={handlePrevClick}>
+        &lt; {/* символ стрелки влево */}
+      </button>
+      <div className="word-card-container">
+        <WordCard word={words[currentIndex]} showTranslation={showTranslation} />
+        <div className="translation-container">
+          <button
+            onClick={handleShowTranslation}
+            ref={translationButtonRef}
+            className="translation-button"
+          >
+            Показать перевод
+          </button>
+        </div>
+      </div>
+      <button className="carousel-button next-button" onClick={handleNextClick}>
+        &gt; {/* символ стрелки вправо */}
+      </button>
+      <div className="learned-counter">
+        Изучено слов: {learnedWords.length}
+      </div>
     </div>
   );
 };
 
 export default WordCarousel;
-
-
-
-
-
-
-
