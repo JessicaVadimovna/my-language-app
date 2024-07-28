@@ -2,17 +2,26 @@ import React from 'react';
 import './WordCard.css';
 
 const WordCard = ({ word, showTranslation }) => {
+  if (!word) {
+    return null; // Если слово не передано, не рендерим компонент
+  }
+
   return (
     <div className="word-card">
-      <div className="word">{word.word}</div>
-      <div className="transcription">{word.transcription}</div>
-      {showTranslation && <div className="translation">{word.translation}</div>}
-      <div className="theme">{word.theme}</div>
+      <h2>{word.word}</h2>
+      {showTranslation && (
+        <div className="translation">
+          <p>{word.translation}</p>
+          <p>{word.transcription}</p>
+        </div>
+      )}
     </div>
   );
 };
 
 export default WordCard;
+
+
 
 
 

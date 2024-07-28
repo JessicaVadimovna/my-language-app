@@ -1,3 +1,4 @@
+/* src/components/WordCarousel/WordCarousel.css */
 .carousel {
   display: flex;
   flex-direction: row;
@@ -5,12 +6,15 @@
   justify-content: center;
   position: relative;
   width: 100%;
+  height: 300px; /* Устанавливаем фиксированную высоту для карусели */
 }
 
 .word-card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  width: 60%; /* Устанавливаем ширину для контейнера с карточками */
 }
 
 .carousel-button {
@@ -19,16 +23,25 @@
   border: none;
   cursor: pointer;
   font-size: 24px;
+  padding: 10px 15px;
+  border-radius: 50%; /* Делаем кнопки круглыми */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Добавляем тень */
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  transition: background-color 0.3s;
+}
+
+.carousel-button:hover {
+  background-color: #5A4BD3; /* Изменение цвета при наведении */
 }
 
 .prev-button {
-  left: 0;
+  left: 20px; /* Отступ от левого края */
 }
 
 .next-button {
-  right: 0;
+  right: 20px; /* Отступ от правого края */
 }
 
 .translation-container {
@@ -40,10 +53,26 @@
   color: white;
   border: none;
   cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.translation-button:hover {
+  background-color: #5A4BD3; /* Изменение цвета при наведении */
 }
 
 .learned-counter {
-  margin-top: 120px;
+  margin-top: 10px;
   position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  border-radius: 4px;
 }
+
 

@@ -1,37 +1,77 @@
-import React, { useState, useContext } from 'react';
-import { WordContext } from '../../contexts/WordContext';
+import React, { useState } from 'react';
+import wordStore from '../../stores/WordStore';
+import './AddWordForm.css';
 
 const AddWordForm = () => {
-  const { addWord } = useContext(WordContext);
-  const [newWord, setNewWord] = useState({ word: '', transcription: '', translation: '', theme: '' });
+  const [newWord, setNewWord] = useState({
+    word: '',
+    translation: '',
+    transcription: '',
+    topic: '',
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewWord({ ...newWord, [name]: value });
+    setNewWord({ ...newWord, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (Object.values(newWord).some((value) => typeof value !== 'string' || value.trim() === '')) {
-      alert('Заполните все поля!');
-      return;
+    if (
+      newWord.word.trim() &&
+      newWord.translation.trim() &&
+      newWord.transcription.trim() &&
+      newWord.topic.trim()
+    ) {
+      wordStore.addWord(newWord);
+      setNewWord({ word: '', translation: '', transcription: '', topic: '' });
+    } else {
+      alert('Все поля должны быть заполнены');
     }
-    addWord(newWord);
-    setNewWord({ word: '', transcription: '', translation: '', theme: '' });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="word" value={newWord.word} onChange={handleChange} placeholder="Слово" />
-      <input type="text" name="transcription" value={newWord.transcription} onChange={handleChange} placeholder="Транскрипция" />
-      <input type="text" name="translation" value={newWord.translation} onChange={handleChange} placeholder="Перевод" />
-      <input type="text" name="theme" value={newWord.theme} onChange={handleChange} placeholder="Тема" />
-      <button type="submit">Добавить слово</button>
+    <form onSubmit={handleSubmit} className="add-word-form">
+      <input
+        type="text"
+        name="word"
+        value={newWord.word}
+        onChange={handleChange}
+        placeholder="Слово"
+        required
+      />
+      <input
+        type="text"
+        name="translation"
+        value={newWord.translation}
+        onChange={handleChange}
+        placeholder="Перевод"
+        required
+      />
+      <input
+        type="text"
+        name="transcription"
+        value={newWord.transcription}
+        onChange={handleChange}
+        placeholder="Транскрипция"
+        required
+      />
+      <input
+        type="text"
+        name="topic"
+        value={newWord.topic}
+        onChange={handleChange}
+        placeholder="Тема"
+        required
+      />
+      <button type="submit">Добавить</button>
     </form>
   );
 };
 
 export default AddWordForm;
+
+
+
 
 
 
